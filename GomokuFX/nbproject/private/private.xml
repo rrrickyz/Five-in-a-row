@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/rickyzheng/Five-in-a-row/GomokuFX/src/gomokufx/Application/methods/Win.java</file>
+            <file>file:/Users/rickyzheng/Five-in-a-row/GomokuFX/src/gomokufx/Application/GomokuFX.java</file>
+            <file>file:/Users/rickyzheng/Five-in-a-row/GomokuFX/src/gomokufx/Application/methods/AI.java</file>
+            <file>file:/Users/rickyzheng/Five-in-a-row/GomokuFX/src/gomokufx/Application/Class/Board.java</file>
+            <file>file:/Users/rickyzheng/Five-in-a-row/GomokuFX/src/gomokufx/Application/Class/Chess.java</file>
+        </group>
     </open-files>
 </project-private>

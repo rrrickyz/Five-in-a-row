@@ -17,6 +17,7 @@ public class Board extends Pane{
     public char token = ' '; //B: black, W: white
     public int currStep; //mark the current step
     
+    //table: 25 x 25
     public Board(int x, int y){
         setStyle("-fx-border-color:black");
         this.setPrefSize(100, 100); //unsure
