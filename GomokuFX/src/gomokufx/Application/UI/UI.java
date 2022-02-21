@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gomokufx.Application;
+package gomokufx.Application.UI;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -19,6 +19,7 @@ import javafx.scene.text.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
+import javafx.scene.shape.Circle;
 
 import javafx.event.ActionEvent;
 
@@ -30,15 +31,19 @@ import gomokufx.Application.Class.Board;
  *
  * @author rickyzheng
  */
-public class GomokuFX extends Application {
+public class UI extends Application {
 
     /**
      * @param args the command line arguments
      */
     
-    private Board[][] Board;   
+    public static Board[][] board;   
     static GridPane root;
     static int size;
+    public static char token = ' ';
+    public static Circle[][] arrayCircles = new Circle[25][25];
+    public static int step = 0; //count the number of moves
+    
     
     //the UI
     @Override
@@ -139,10 +144,20 @@ public class GomokuFX extends Application {
         window.show();
     }
     
+    public void setToken(char token, int x, int y, boolean who){
+        
+    }
     
+    public void remove(int x, int y){
+        
+    }
+    
+    public char getToken(){
+        return UI.token;
+    }
    
     public static void main(String[] args) {
-        launch(GomokuFX.class);
+        launch(UI.class);
     }
     
 }

@@ -9,28 +9,33 @@ package gomokufx.Application.methods;
  *
  * @author rickyzheng
  */
+
+import gomokufx.Application.UI.UI;
+
 public class AI {
     int[][] board = new int[25][25];
     boolean level = true; //True: max level; False: min level.
     
     //get the score of the current chess piece
     private int getScore(int x, int y, char token){
-        return evaluate(x,y,token)+evaluate(x,y,(char)(153 - token));
+        return evaluateMoves(x,y,token)+evaluateMoves(x,y,(char)(153 - token));
     }
     
     //evaluate the current score according to the moves
-    private int evaluate(int x, int y, char token){
+    private int evaluateMoves(int x, int y, char token){
         int value = 0;
         
         //1: my token; 0: empty move; 2: opponent's token; *:current move
         for(int i=1; i<=8; i++){
-                  
+             
+            //  ------------- four moves --------------
             //case: 01111*
             if(checkLine(x,y,i,-1)==token &&
                checkLine(x,y,i,-2)==token &&
                checkLine(x,y,i,-3)==token &&
                checkLine(x,y,i,-4)==token &&
                checkLine(x,y,i,-5)==' '){
+          
                     
             }
             //case: 21111*
@@ -39,6 +44,7 @@ public class AI {
                checkLine(x,y,i,-3)==token &&
                checkLine(x,y,i,-4)==token &&
                (checkLine(x,y,i,-5)==(char)(153-token)||checkLine(x,y,i,5)=='E')){
+  
                 
             }
             
@@ -47,7 +53,7 @@ public class AI {
                checkLine(x,y,i,-2)==token &&
                checkLine(x,y,i,-3)==token &&
                checkLine(x,y,i,1)==token){
-                
+         
             }
             
             //case: 11*11
@@ -55,8 +61,10 @@ public class AI {
                checkLine(x,y,i,-2)==token &&
                checkLine(x,y,i,1)==token &&
                checkLine(x,y,i,2)==token){
-                
+          
             }
+            
+            // -------------- three moves -----------------
                
             //case: 111*
             if(checkLine(x,y,i,-1)==token &&
@@ -65,16 +73,14 @@ public class AI {
                 //available moves on the two sides
                 //0111*0
                if(checkLine(x,y,i,1)==' ' && checkLine(x,y,i,-4)==' '){
-                
-                }
-               
+                             
+                }              
                //1110*
-
                //no available moves on the two sides
-               //|*1112, 2111*2, 2111*|
-             
+               //|*1112, 2111*2, 2111*|           
                else if((checkLine(x,y,i,-4)==(char)(153-token) || checkLine(x,y,i,-4)=='E')&&
                        checkLine(x,y,i,1)==(char)(153-token) || checkLine(x,y,i,1)=='E'){
+                  
                 
                //available moves only on the one side
                // |111*00
@@ -84,33 +90,129 @@ public class AI {
                    
                }
             }
-
+            
+            //case: 1110*
+            if(checkLine(x,y,i,-1)==' ' &&
+               checkLine(x,y,i,-2)==token &&
+               checkLine(x,y,i,-3)==token &&
+               checkLine(x,y,i,-4)==token){
+                if(checkLine(x,y,i,1)==' ' && checkLine(x,y,i,-5)==' '){
+                    
+                }
+                
+            }
+            
+            //case: 11*1
+            if(checkLine(x,y,i,-1) == token &&
+               checkLine(x,y,i,-2) == token &&
+               checkLine(x,y,i,1) == token){
+                //available moves
+                if(checkLine(x,y,i,-3)== ' ' && checkLine(x,y,i,2)==' '){
+                    
+                }
+                //no available moves
+                else if((checkLine(x,y,i,-3) == (char)(153 - token) || checkLine(x,y,i,-3) == 'E')
+                        && (checkLine(x,y,i,2)==(char)(153 - token) || checkLine(x,y,i,2) == 'E')){
+                    
+                }
+                //available on one side
+                else{
+                    
+                }
+            }
+            
+            //case: 10*11
+            if(checkLine(x,y,i,1) == token &&
+               checkLine(x,y,i,2) == token &&
+               checkLine(x,y,i,-1) == ' '){
+                //10*110
+                if(checkLine(x,y,i,3)== ' '){
+                    if(UI.token==token){
+                        
+                    }
+                    else{
+                        
+                    }
+                }
+            
+                //10*11|, 10*112
+                else if(checkLine(x,y,i,3) == (char)(153 - token) || checkLine(x,y,i,3) == 'E'){
+                    if(UI.token == token){
+                        
+                    }
+                    else{                 
+                        
+                    }
+                }
+            }
+            
+            //case: 1*011
+            if(checkLine(x,y,i,-1)==token &&
+               checkLine(x,y,i,1)==' ' &&
+               checkLine(x,y,i,2)==token &&
+               checkLine(x,y,i,3)==token){
+                if(checkLine(x,y,i,-2) ==' ' && checkLine(x,y,i,4)==' '){
+                    if(UI.token==token){
+                        
+                    }
+                    else{
+                        
+                    }
+                }
+                else{
+                    if(UI.token==token){
+                        
+                    }
+                    else{
+                        
+                    }
+                }
+            }
+    
             //case: 101*1
             if(checkLine(x,y,i,-1)==token && 
                checkLine(x,y,i,1)==token &&
+               checkLine(x,y,i,-2) == ' ' &&
                checkLine(x,y,i,-3)==token){
-                
+                if(checkLine(x,y,i,2) == ' '){
+                    if(UI.token==token){
+                        
+                    }
+                    else{
+                        
+                    }
+                }
+                else if(checkLine(x,y,i,2) == (char)(153 - token) || checkLine(x,y,i,2) == 'E'){
+                    if(UI.token==token){
+                        
+                    }
+                    else{
+                        
+                    }                 
+                }
             }
+        
+        // --------------------- two moves --------------------------
         
             //case: 1*1
             if(checkLine(x,y,i,1)==token &&
                checkLine(x,y,i,-1)==token){
                 //no dead moves
                 // 01*10
-                if(checkLine(x,y,i,2)==token &&
-               checkLine(x,y,i,-2)==token){
+                if(checkLine(x,y,i,2)==' ' &&
+               checkLine(x,y,i,-2)==' '){
                     
                 
                 }
                 //dead moves on two sides
                 else if((checkLine(x,y,i,2)==(char)(153-token) || checkLine(x,y,i,2)=='E') &&
                          checkLine(x,y,i,-2)==(char)(153-token) || checkLine(x,y,i,-2)=='E'){
-                    
+                   
                 }
                 //dead move one side 
                 // |1*10, 01*1|, 21*10, 21*12, |1*1|
                 else{
-                    
+                   
                 }
             }
             
@@ -129,17 +231,82 @@ public class AI {
                 //dead moves on one side
                 //011*2, 211*0
                 else{
+                   
+                }
+            }
+            
+            //case: 110*
+            if(checkLine(x,y,i,-2)==token &&
+               checkLine(x,y,i,-3)==token &&
+               checkLine(x,y,i,-1)==' '){
+                if(checkLine(x,y,i,1)==' ' && checkLine(x,y,i,-4)==' '){
+                    
+                }
+                else if((checkLine(x,y,i,-4)==(char)(153 - token) || checkLine(x,y,i,-4)=='E') &&
+                        (checkLine(x,y,i,1)==(char)(153 - token) || checkLine(x,y,i,1)=='E')){
+                    
+                }
+                else{
                     
                 }
             }
             
+            //case: 10*1
+            if(checkLine(x,y,i,-2)==token &&
+               checkLine(x,y,i,-1)==' ' &&
+               checkLine(x,y,i,-1)==token){
+                if(checkLine(x,y,i,-3)==' ' && checkLine(x,y,i,2)==' '){
+                    
+                }
+                else if((checkLine(x,y,i,-3)==(char)(153 - token) || checkLine(x,y,i,-3)=='E') &&
+                        (checkLine(x,y,i,2)==(char)(153 - token) || checkLine(x,y,i,2)=='E')){
+                    
+                }
+                else{
+                    
+                }
+            }
+            
+        // ---------------------- one moves -----------------------------
+            
+            //case: 1*
+            if(checkLine(x,y,i,-1)== token){
+                
+                if(checkLine(x,y,i,1)==' ' && checkLine(x,y,i,-2)==' '){
+                    
+                }
+                else if((checkLine(x,y,i,1)==(char)(153 - token) || (checkLine(x,y,i,1)=='E') &&
+                         (checkLine(x,y,i,-2)==(char)(153 - token) || checkLine(x,y,i,-2)=='E'))){
+                    
+                }
+                else{
+                    
+                }
+            }
+            
+            //case: 10*
+            if(checkLine(x,y,i,-1)==' ' &&
+               checkLine(x,y,i,-2)==token){
+                if(checkLine(x,y,i,1)==' ' && checkLine(x,y,i,-3)==' '){
+                    
+                }
+                else if((checkLine(x,y,i,1)==(char)(153-token) || checkLine(x,y,i,1)=='E') &&
+                        (checkLine(x,y,i,-3)==(char)(153-token) || checkLine(x,y,i,-3)=='E')){
+                    
+                }
+                else{
+                    
+                }
+            }
+            
+        // ----------------------- no moves ------------------------------
             //case: 0*0, no dead move
             if(checkLine(x,y,i,1)==' ' && checkLine(x,y,i,-1)==' '){
                 
             }
             
             //case: dead moves on two side
-            //|*2, 2*0 
+            //|*2, 2*2 
             if((checkLine(x,y,i,1)==(char)(153-token) || checkLine(x,y,i,1)==(char)(153-token)) &&
                 checkLine(x,y,i,-1)==(char)(153-token) || checkLine(x,y,i,-1)==(char)(153-token)){
                 
@@ -148,7 +315,7 @@ public class AI {
             //case: dead move on one side
             if(((checkLine(x,y,i,1)==(char)(153-token) || checkLine(x,y,i,1)==(char)(153-token)) && checkLine(x,y,i,-1)==' ') ||
                 (checkLine(x,y,i,-1)==(char)(153-token) || checkLine(x,y,i,-1)==(char)(153-token)) && checkLine(x,y,i,-1)==' '){
-                
+               
             }
         }
         
@@ -183,26 +350,25 @@ public class AI {
     }
     
     private int Alpha_Beta(int depth, int alpha, int beta, int x, int y, char token){
-        if(depth==5){
-            board[x][y] = evaluate(x,y,token);
+        if(depth==3){
+            board[x][y] = getScore(x,y,token);
             return board[x][y];
         }
-        //at the max level
-        if(this.level){
-            int value = Integer.MIN_VALUE;
-            for(int i=0; i<25; i++){
-                for(int j=0; j<25; j++){
-                    //no chess piece here
-                    if(Board[i][j].getToken()==' ')continue;
-                    Board[i][j].setToken(token,i,j);
-                    this.level = false;
-                    token = (token =='B')? 'W':'B';
-                    value = Math.max(value, -Alpha_Beta(depth+1,-beta, -alpha, i, j, token));
-                    if(value )
-                }
-            }
-        }
         
+        //alpha: lower bound, beta: upper bound
+        for(int i=0; i<25; i++){
+            for(int j=0; j<25; j++){
+                if(UI.board[i][j].token!=' ')continue;
+                
+                //UI.board[i][j].setToken(token, i, j, false);
+                char newToken = (token=='B')?'W':'B';
+                int value = -Alpha_Beta(depth+1, -beta,-alpha, i, j, newToken);
+                //UI.board.remove(i,j);
+                if(value >= beta)break;
+                alpha = Math.max(alpha, value);
+            }
+        }      
+        return alpha;      
     }
     
     private char checkLine(int x, int y, int i, int j){ //i: direction, j: move j steps
@@ -240,6 +406,7 @@ public class AI {
             return 'E';
         }
         //return the token of the next move on the chessboard
-        return Board[x][y].getToken();
+        //return UI.board[x][y].getToken();
+        return 'B';
     }
 }
