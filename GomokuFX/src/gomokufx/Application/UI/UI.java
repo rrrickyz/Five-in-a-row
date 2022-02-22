@@ -43,6 +43,7 @@ public class UI extends Application {
     public static char token = ' ';
     public static Circle[][] arrayCircles = new Circle[25][25];
     public static int step = 0; //count the number of moves
+    public static boolean AIPlay = true; //AI-to-human or human-to-human
     
     
     //the UI
